@@ -63,3 +63,34 @@ loader.load(url, (obj) => {
   model.position.set(0, 0, 0);
   scene.add(model);
 });
+
+function fitCameraToObject(object) {
+  const box = new THREE.Box3().setFromObject(object);
+  const size = box.getSize(new THREE.Vector3()).length();
+  const center = box.getCenter(new THREE.Vector3());
+
+  controls.target.copy(center);
+  camera.position.copy(center);
+  camera.position.x += size * 1.5;
+  camera.position.y += size * 1.5;
+  camera.position.z += size * 1.5;
+  controls.update();
+}
+
+scene.add(model);
+fitCameraToObject(model);  // 👈 Add this!
+
+const gridHelper = new THREE.GridHelper(10, 10);
+scene.add(gridHelper);
+
+const axesHelper = new THREE.AxesHelper(5);
+scene.add(axesHelper);
+
+console.log('Loaded model:', model);
+
+model.traverse(function (child) {
+  if (child.isMesh) {
+    child.geometry.computeVertexNormals();
+  }
+});
+
