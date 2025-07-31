@@ -56,3 +56,10 @@ function animate() {
 }
 
 animate();
+
+loader.load(url, (obj) => {
+  console.log("Model loaded:", obj); // 👈 Add this
+  model = obj;
+  model.position.set(0, 0, 0);
+  scene.add(model);
+});
