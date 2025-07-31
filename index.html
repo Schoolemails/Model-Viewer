@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Model Viewer</title>
+  <style>
+    body { margin: 0; background: #111; color: white; font-family: sans-serif; }
+    canvas { display: block; }
+    #upload {
+      position: absolute; top: 10px; left: 10px;
+      z-index: 10; background: #222; padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="upload">
+    <input type="file" id="fileInput" accept=".obj,.glb,.gltf" />
+  </div>
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>
