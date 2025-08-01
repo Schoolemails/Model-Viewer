@@ -31,7 +31,8 @@ scene.add(new THREE.AxesHelper(5));
 let model = null;
 
 function fitCameraToObject(object) {
-  const box = new THREE.Box3().setFromObject(object);
+  const box = new THREE.Box3().setFromObject(model);
+console.log('Bounding box:', box);
   const size = box.getSize(new THREE.Vector3()).length();
   const center = box.getCenter(new THREE.Vector3());
 
@@ -64,6 +65,8 @@ document.getElementById('fileInput').addEventListener('change', function (event)
           c.geometry.computeVertexNormals();
           if (!c.material || !('color' in c.material)) {
             c.material = new THREE.MeshPhongMaterial({ color: 0x555555 });
+              console.log('Loaded OBJ:', obj);
+
           }
         }
       });
