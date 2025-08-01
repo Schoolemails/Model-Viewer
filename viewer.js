@@ -16,7 +16,7 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-// Lighting for shading
+// Lighting
 const dirLight = new THREE.DirectionalLight(0xffffff, 1);
 dirLight.position.set(5, 10, 7);
 scene.add(dirLight);
@@ -31,8 +31,7 @@ scene.add(new THREE.AxesHelper(5));
 let model = null;
 
 function fitCameraToObject(object) {
-  const box = new THREE.Box3().setFromObject(model);
-console.log('Bounding box:', box);
+  const box = new THREE.Box3().setFromObject(object);
   const size = box.getSize(new THREE.Vector3()).length();
   const center = box.getCenter(new THREE.Vector3());
 
@@ -65,8 +64,6 @@ document.getElementById('fileInput').addEventListener('change', function (event)
           c.geometry.computeVertexNormals();
           if (!c.material || !('color' in c.material)) {
             c.material = new THREE.MeshPhongMaterial({ color: 0x555555 });
-              console.log('Loaded OBJ:', obj);
-
           }
         }
       });
