@@ -4,7 +4,7 @@ import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/j
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xffffff);
+scene.background = new THREE.Color(0xffffff); // White background
 
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(2, 2, 5);
@@ -16,11 +16,13 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(5, 10, 7);
-scene.add(light);
+// Lighting for shading
+const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+dirLight.position.set(5, 10, 7);
+scene.add(dirLight);
 
-scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const ambLight = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambLight);
 
 // Helpers
 scene.add(new THREE.GridHelper(10, 10));
@@ -58,7 +60,12 @@ document.getElementById('fileInput').addEventListener('change', function (event)
     loader.load(url, (obj) => {
       model = obj;
       model.traverse(c => {
-        if (c.isMesh) c.geometry.computeVertexNormals();
+        if (c.isMesh) {
+          c.geometry.computeVertexNormals();
+          if (!c.material || !('color' in c.material)) {
+            c.material = new THREE.MeshPhongMaterial({ color: 0x555555 });
+          }
+        }
       });
       scene.add(model);
       fitCameraToObject(model);
@@ -68,6 +75,11 @@ document.getElementById('fileInput').addEventListener('change', function (event)
     const loader = new GLTFLoader();
     loader.load(url, (gltf) => {
       model = gltf.scene;
+      model.traverse(c => {
+        if (c.isMesh && (!c.material || !('color' in c.material))) {
+          c.material = new THREE.MeshPhongMaterial({ color: 0x555555 });
+        }
+      });
       scene.add(model);
       fitCameraToObject(model);
       console.log("Loaded GLTF model:", model);
