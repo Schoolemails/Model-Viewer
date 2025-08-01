@@ -16,6 +16,12 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 10, 7);
+scene.add(light);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
 // Helpers
 scene.add(new THREE.GridHelper(10, 10));
 scene.add(new THREE.AxesHelper(5));
