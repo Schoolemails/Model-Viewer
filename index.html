@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>3D Model Viewer</title>
+  <title>3D Model Viewer (No Modules)</title>
   <style>
     body { margin: 0; background: #fff; color: black; font-family: sans-serif; }
     canvas { display: block; }
@@ -12,11 +12,17 @@
       border-radius: 5px;
     }
   </style>
+
+  <!-- Load non-module versions of Three.js and loaders -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/OBJLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
   <div id="upload">
     <input type="file" id="fileInput" accept=".obj,.glb,.gltf" />
   </div>
-  <script type="module" src="viewer.js"></script>
+  <script src="viewer-legacy.js"></script>
 </body>
 </html>
