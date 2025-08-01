@@ -3,6 +3,17 @@ import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/exampl
 import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/OBJLoader.js';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
 
+import { GridHelper } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+scene.add(new THREE.GridHelper(10, 10));
+
+if (model) {
+  const box = new THREE.Box3().setFromObject(model);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3()).length();
+  controls.target.copy(center);
+  camera.position.copy(center).add(new THREE.Vector3(size, size, size));
+}
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x111111);
 
