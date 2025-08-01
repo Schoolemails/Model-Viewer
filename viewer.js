@@ -94,3 +94,5 @@ model.traverse(function (child) {
   }
 });
 
+console.log('Loaded model:', model);
+
